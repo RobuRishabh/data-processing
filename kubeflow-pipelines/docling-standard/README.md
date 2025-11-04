@@ -1,15 +1,16 @@
-# Standard ODH Data Processing Kubeflow Pipeline
+# Standard Data Processing Kubeflow Pipeline
 
 Standard (non-VLM) Docling [Kubeflow Pipeline](https://www.kubeflow.org/docs/components/pipelines/) (KFP) for [Open Data Hub](https://github.com/opendatahub-io) / [Red Hat OpenShift AI](https://www.redhat.com/en/products/ai/openshift-ai) supporting standard conversions, OCR, table structure, and enrichments.
 
 ## Installation
 
-Download the [compiled YAML file](standard_convert_pipeline_compiled.yaml?raw=1) and upload it on the _Import pipeline_ screen, or import it by URL by pointing it to `https://github.com/opendatahub-io/odh-data-processing/raw/refs/heads/main/kubeflow-pipelines/docling-standard/standard_convert_pipeline_compiled.yaml`.
+Download the [compiled YAML file](standard_convert_pipeline_compiled.yaml?raw=1) and upload it on the _Import pipeline_ screen, or import it by URL by pointing it to `https://github.com/opendatahub-io/data-processing/raw/refs/heads/main/kubeflow-pipelines/docling-standard/standard_convert_pipeline_compiled.yaml`.
 
 ## Configuration options
 
 The following configuration options are available as KFP parameters when you _Create run_:
 
+- `docling_accelerator_device`: Device to use for acceleration (`auto`, `cpu`, `cuda`, `gpu`, `mps`). Default: `auto`.
 - `docling_enrich_code`: Enable the code enrichment model in the pipeline.
 - `docling_enrich_formula`: Enable the formula enrichment model in the pipeline.
 - `docling_enrich_picture_classes`: Enable the picture classification enrichment model in the pipeline.
@@ -32,8 +33,8 @@ The following configuration options are available as KFP parameters when you _Cr
 ### Clone repository, create venv, install dependencies
 
 ```bash
-git clone https://github.com/opendatahub-io/odh-data-processing.git
-cd odh-data-processing/kubeflow-pipelines/docling-standard
+git clone https://github.com/opendatahub-io/data-processing.git
+cd data-processing/kubeflow-pipelines/docling-standard
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
