@@ -1,26 +1,16 @@
-# .mergify.yml defines the rules for merging pull requests.
-
 pull_request_rules:
   # PRIMARY MERGE RULE: Single comprehensive rule for auto-merge
   - name: Auto-merge when ALL conditions met
     conditions:
-      # ALL assigned reviewers must approve
-      - "#approved-reviews-by>=1"              # At least one approval
-      - "#changes-requested-reviews-by=0"      # No outstanding change requests
-      - "#review-requested=0"                  # No pending review requests
-      
-      # Add flexible check for all workflows:
-      - "check-failure=~^$"             # No failing checks allowed   
-
-      # PR must be ready for merge
-      - "-draft"                               # Not a draft
-      - "base=main"                           # Targeting main branch
-      - "label!=do-not-merge"                 # No blocking labels
-      - "label!=breaking-change"              # Important - requires special handling
-      
-      # Technical requirements
-      - "-conflict"                           # No merge conflicts
-
+      - "#approved-reviews-by>=1"
+      - "#changes-requested-reviews-by=0"
+      - "#review-requested=0"
+      - "check-failure=~^$"
+      - "-draft"
+      - "base=main"
+      - "label!=do-not-merge"
+      - "label!=breaking-change"
+      - "-conflict"
     actions:
       merge:
         method: squash
@@ -62,7 +52,7 @@ pull_request_rules:
     actions:
       backport:
         branches:
-          - "{{ label | select('match', '^backport/(.+)$') | map('regex_replace', '^backport/(.+)$', '\\1') | first }}"
+          - "{{ labels | select('match', '^backport/(.+)$') | map('regex_replace', '^backport/(.+)$', '\\1') | first }}"
         title: "[Backport {{ destination_branch }}] {{ title }}"
         body: |
           🔄 **Automatic backport of #{{ number }}**
